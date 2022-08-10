@@ -9,7 +9,7 @@
     remotes::install_github('youth-impact/rsurveycto')
     ```
 
-1. Create a file "scto_auth.txt" in the params folder. The file should have the SurveyCTO server name on the first line, username on the second line, and password on the third line.
+1. Rename the file "scto_auth_empty.txt" in the params folder to "scto_auth.txt" and add the SurveyCTO server name on the first line, username on the second line, and password on the third line.
 
 1. Open a Terminal session in the main connected_monitoring folder and run the script to process the call assignments.
 
