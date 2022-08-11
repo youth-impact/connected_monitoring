@@ -2,18 +2,20 @@ library('data.table')
 library('glue')
 library('rsurveycto')
 
-# week_now = 5
-cArgs = commandArgs(TRUE)
-if (!(cArgs[1L] %in% as.character(1:6))) stop('Invalid week.')
-week_now = as.integer(cArgs[1L])
+paramsDir = 'params'
+dataDir = 'data'
+outputDir = 'output'
+
+if (interactive()) {
+  week_now = 5
+} else {
+  cArgs = commandArgs(TRUE)
+  if (!(cArgs[1L] %in% as.character(1:6))) stop('Invalid week.')
+  week_now = as.integer(cArgs[1L])}
 
 if (!dir.exists(outputDir)) dir.create(outputDir)
 
 ########################################
-
-paramsDir = 'params'
-dataDir = 'data'
-outputDir = 'output'
 
 group_now = if (week_now %in% c(1, 3, 5)) 1 else 2
 auth = scto_auth(file.path(paramsDir, 'scto_auth.txt'))
