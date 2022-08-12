@@ -26,3 +26,11 @@
     ```
 
 1. Examine the resulting files in the output folder.
+
+## To use with GitHub Actions
+
+1. Create a repository secret called "SCTO_AUTH" containing the contents of "scto_auth.txt".
+
+1. Create a repository secret called "GOOGLE_TOKEN" containing the JSON of a Google service account token.
+
+1. In the relevant Google Sheet, give editor permissions to the email address of the corresponding Google service account (e.g., xx@yy.iam.gserviceaccount.com).

@@ -4,8 +4,6 @@ library('googlesheets4')
 library('rsurveycto')
 library('yaml')
 
-# TODO: enable to use gs4_auth within GH actions
-
 paramsDir = 'params'
 dataDir = 'data'
 outputDir = 'output'
