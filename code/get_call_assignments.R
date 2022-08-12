@@ -33,4 +33,4 @@ assignments = rbind(
 
 setnames(assignments, keep$old, keep$new)
 
-fwrite(assignments, file.path(outputDir, 'acct_call_assignments.csv'))
+fwrite(assignments, file.path(outputDir, 'call_assignments.csv'))
