@@ -12,6 +12,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       GOOGLE_TOKEN: ${{ secrets.GOOGLE_TOKEN }}
+      SCTO_AUTH: ${{ secrets.SCTO_AUTH }}
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v2

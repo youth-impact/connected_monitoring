@@ -4,12 +4,18 @@ library('googlesheets4')
 library('rsurveycto')
 library('yaml')
 
-# TODO: enable to use scto_auth within GH actions
 # TODO: enable to use gs4_auth within GH actions
 
 paramsDir = 'params'
 dataDir = 'data'
 outputDir = 'output'
+
+if (!dir.exists(outputDir)) dir.create(outputDir)
+
+params = read_yaml(file.path(paramsDir, 'params.yml'))
+groups = fread(file.path(paramsDir, 'biweekly_groups.csv'))
+
+########################################
 
 if (interactive()) {
   week_now = 0
@@ -18,14 +24,22 @@ if (interactive()) {
   if (!(cArgs[1L] %in% as.character(0:6))) stop('Invalid week.')
   week_now = as.integer(cArgs[1L])}
 
-if (!dir.exists(outputDir)) dir.create(outputDir)
+########################################
+
+if (Sys.getenv('SCTO_AUTH') == '') {
+  auth_file = file.path(paramsDir, 'scto_auth.txt')
+} else {
+  auth_file = withr::local_tempfile()
+  writeLines(Sys.getenv('SCTO_AUTH'), auth_file)}
+
+auth = scto_auth(auth_file)
 
 ########################################
 
-params = read_yaml(file.path(paramsDir, 'params.yml'))
-groups = fread(file.path(paramsDir, 'biweekly_groups.csv'))
-
-auth = scto_auth(file.path(paramsDir, 'scto_auth.txt'))
+if (Sys.getenv('GOOGLE_TOKEN') == '') {
+  gs4_auth()
+} else {
+  gs4_auth(path = Sys.getenv('GOOGLE_TOKEN'))}
 
 ########################################
 
