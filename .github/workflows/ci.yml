@@ -19,4 +19,4 @@ jobs:
           use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
       - run: Rscript code/get_call_assignments.R
-      - run: Rscript code/get_monitoring.R
+      - run: Rscript code/get_monitoring.R 0
