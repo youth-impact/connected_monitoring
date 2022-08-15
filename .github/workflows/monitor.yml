@@ -1,4 +1,4 @@
-name: ci
+name: monitor
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     - cron: '55 * * * *'
 
 jobs:
-  ci:
+  monitor:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -19,5 +19,4 @@ jobs:
         with:
           use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
-      - run: Rscript code/get_call_assignments.R
-      - run: Rscript code/get_monitoring.R 0
+      - run: Rscript code/monitor.R
