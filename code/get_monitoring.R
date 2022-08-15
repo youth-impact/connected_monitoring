@@ -15,12 +15,12 @@ groups = fread(file.path(paramsDir, 'biweekly_groups.csv'))
 
 ########################################
 
-if (interactive()) {
-  week_now = 0
-} else {
-  cArgs = commandArgs(TRUE)
-  if (!(cArgs[1L] %in% as.character(0:6))) stop('Invalid week.')
-  week_now = as.integer(cArgs[1L])}
+# if (interactive()) {
+#   week_now = 0
+# } else {
+#   cArgs = commandArgs(TRUE)
+#   if (!(cArgs[1L] %in% as.character(0:6))) stop('Invalid week.')
+#   week_now = as.integer(cArgs[1L])}
 
 ########################################
 
@@ -50,11 +50,15 @@ assignments[, current_phone_num_best := as.character(current_phone_num_best)]
 # import_tarl_accountability_survey_r7.do
 
 acct_survey = scto_pull(auth, params$dataset_id, 'form', cache_dir = dataDir) # refresh = TRUE
-acct_survey[, week := as.integer(week)]
+# acct_survey[, week := as.integer(week)]
+
+acct_survey[, comp_date := as.IDate(CompletionDate, format = '%b %e, %Y %I:%M:%S %p')]
+acct_survey[, week := temp_week_name]
+week_now = acct_survey[comp_date == max(comp_date)]$week[1L]
 
 ########################################
 
-if (week_now == 0) week_now = max(acct_survey$week)
+# if (week_now == 0) week_now = max(acct_survey$week)
 group_now = groups[week == week_now]$biweekly_group
 
 assignments = assignments[biweekly_group == group_now]
@@ -63,7 +67,7 @@ acct_survey = acct_survey[week == week_now]
 ########################################
 
 acct_dups = acct_survey[, if (.N > 1) .SD, by = id]
-rsurveycto:::drop_empties(acct_dups)
+drop_empties(acct_dups)
 acct_dups[, duplicate_group := .GRP, by = id]
 setcolorder(acct_dups, 'duplicate_group')
 

@@ -9,7 +9,7 @@
     pak::pak()
     ```
 
-1. Rename the file "scto_auth_empty.txt" in the params folder to "scto_auth.txt" and add the SurveyCTO server name on the first line, username on the second line, and password on the third line.
+1. Create a text file called "scto_auth.txt" in the params folder and add the SurveyCTO server name on the first line, username on the second line, and password on the third line.
 
 1. Open a Terminal session in the main connected_monitoring folder and run the script to process the call assignments.
 
@@ -19,10 +19,10 @@
 
 ## Do these things each week
 
-1. Open a Terminal session in the main connected_monitoring folder and run the monitoring script, changing "xx" to the desired week number or to "0" for the most recent week.
+1. Open a Terminal session in the main connected_monitoring folder and run the monitoring script.
 
     ```sh
-    Rscript code/get_monitoring.R xx
+    Rscript code/get_monitoring.R
     ```
 
 1. Examine the resulting files in the output folder.
