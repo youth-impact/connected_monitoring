@@ -10,7 +10,7 @@ outputDir = 'output'
 
 if (!dir.exists(outputDir)) dir.create(outputDir)
 
-params = read_yaml(file.path(paramsDir, 'params.yml'))
+params = read_yaml(file.path(paramsDir, 'params.yaml'))
 # groups = fread(file.path(paramsDir, 'biweekly_groups.csv'))
 
 ########################################
@@ -78,6 +78,7 @@ acct_dups[, duplicate_group := .GRP, by = id]
 setcolorder(acct_dups, 'duplicate_group')
 
 write_sheet(acct_dups, params$googlesheet_id, 'duplicates')
+range_autofit(params$googlesheet_id, 'duplicates')
 fwrite(acct_dups, file.path(outputDir, 'duplicates.csv'))
 
 ########################################
@@ -100,6 +101,7 @@ acct_summary[, missing_cases := assigned_cases - submitted_cases]
 setorder(acct_summary, -missing_cases)
 
 write_sheet(acct_summary, params$googlesheet_id, 'summary')
+range_autofit(params$googlesheet_id, 'summary')
 fwrite(acct_summary, file.path(outputDir, 'summary.csv'))
 
 ########################################
@@ -109,6 +111,7 @@ acct_missing = merge(
   # assignments[, !'biweekly_group'], by = by_cols)
 
 write_sheet(acct_missing, params$googlesheet_id, 'missing')
+range_autofit(params$googlesheet_id, 'missing')
 fwrite(acct_missing, file.path(outputDir, 'missing.csv'))
 
 ########################################
@@ -118,4 +121,5 @@ status = data.table(
   last_updated_utc = Sys.time())
 
 write_sheet(status, params$googlesheet_id, 'status')
+range_autofit(params$googlesheet_id, 'status')
 fwrite(status, file.path(outputDir, 'status.csv'))
