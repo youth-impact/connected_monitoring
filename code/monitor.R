@@ -41,7 +41,7 @@ if (Sys.getenv('GOOGLE_TOKEN') == '') {
 
 ########################################
 
-cases = scto_pull(auth, 'cases', cache_dir = outputDir)
+cases = scto_read(auth, 'cases', cache_dir = outputDir)
 setnames(cases, c('facilitator', 'f_id'), c('facilitator_name', 'facilitator_id'))
 # cases[, current_phone_num_best := as.character(current_phone_num_best)]
 
@@ -53,7 +53,7 @@ setnames(cases, c('facilitator', 'f_id'), c('facilitator_name', 'facilitator_id'
 # TODO: convert numeric values to meanings based on
 # import_tarl_accountability_survey_r7.do
 
-acct_survey = scto_pull(auth, params$dataset_id, 'form', cache_dir = outputDir)
+acct_survey = scto_read(auth, params$dataset_id, 'form', cache_dir = outputDir)
 # acct_survey[, week := as.integer(week)]
 
 acct_survey[, comp_date := as.IDate(CompletionDate, format = '%b %e, %Y %I:%M:%S %p')]
