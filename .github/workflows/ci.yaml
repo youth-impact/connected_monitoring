@@ -1,13 +1,17 @@
-name: monitor
+name: ci
 
 on:
   push:
     branches: 'main'
-  schedule:
-    - cron: '55 * * * *'
+  repository_dispatch:
+    types: [webhook]
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  monitor:
+  ci:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
