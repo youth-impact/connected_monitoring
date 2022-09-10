@@ -1,4 +1,4 @@
-source('code', 'setup.R')
+source(file.path('code', 'setup.R'))
 
 ########################################
 
