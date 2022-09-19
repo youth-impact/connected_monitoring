@@ -2,8 +2,10 @@ source(file.path('code', 'setup.R'))
 
 ########################################
 
-cases = scto_read(auth, 'cases')
-setnames(cases, c('facilitator', 'f_id'), c('facilitator_name', 'facilitator_id'))
+cases = scto_read(auth, params$dataset_id)
+setnames(
+  cases, c('facilitator', 'f_id'),
+  c('facilitator_name', 'facilitator_id'))
 
 ########################################
 

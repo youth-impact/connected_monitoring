@@ -56,4 +56,3 @@ get_missing = function(acct_monitor, cases, by_cols) {
   acct_missing = merge(
     acct_monitor[submitted == 0, !'submitted'], cases, by = by_cols)
   return(acct_missing)}
-
