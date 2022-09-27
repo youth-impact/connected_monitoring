@@ -12,7 +12,7 @@ setnames(
 # TODO: convert numeric values to meanings based on
 # import_tarl_accountability_survey_r7.do
 
-acct_survey = scto_read(auth, params$form_id, 'form')
+acct_survey = scto_read(auth, params$form_id)
 acct_survey[, comp_date := as.IDate(
   CompletionDate, format = '%b %e, %Y %I:%M:%S %p')]
 acct_survey[, week := temp_week_name]
