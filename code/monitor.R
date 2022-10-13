@@ -3,24 +3,19 @@ source(file.path('code', 'setup.R'))
 ########################################
 
 cases = scto_read(auth, params$dataset_id)
-setnames(
-  cases, c('facilitator', 'f_id'),
-  c('facilitator_name', 'facilitator_id'))
+setnames(cases, c('f_name', 'f_id'), c('facilitator_name', 'facilitator_id'))
 
 ########################################
-
-# TODO: convert numeric values to meanings based on
-# import_tarl_accountability_survey_r7.do
 
 acct_survey = scto_read(auth, params$form_id)
 acct_survey[, comp_date := as.IDate(
   CompletionDate, format = '%b %e, %Y %I:%M:%S %p')]
-acct_survey[, week := temp_week_name]
-
-week_now = acct_survey[comp_date == max(comp_date)]$week[1L]
-acct_survey = acct_survey[week == week_now]
 
 ########################################
+
+# raw_duplicates sheet has column for keep
+# unresolved_duplicates sheet
+# or use formatting to highlight the unresolved duplicates?
 
 x = list()
 
@@ -33,9 +28,7 @@ x$summary = get_summary(acct_monitor, by_cols[1:2])
 
 x$missing = get_missing(acct_monitor, cases, by_cols)
 
-x$status = data.table(
-  week = week_now,
-  last_updated_utc = Sys.time())
+x$status = data.table(last_updated_utc = Sys.time())
 
 ########################################
 
