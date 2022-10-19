@@ -25,7 +25,7 @@ function dispatch(repo_url) {
 }
 
 function at_edit(e) {
-  var sheets = ['github'];
+  var sheets = ['github', 'duplicates'];
   var sheet_now = e.range.getSheet().getName();
   var gh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('github');
   var enabled = gh.getRange('B2').getValue();
